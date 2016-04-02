@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+  	<title>Login Form</title>
+  	<style>
+  	.my-block {
+     	text-align: center;
+      	display: table-cell;
+        vertical-align: middle;
+        color: orange;
+        font-size: 32;
+        font-weight: 100;
+        font-style: oblique; 
+        font-family: 'TImes New Roman';
+    }
+   	</style>
+</head>
+<body>
+	<center>
+  		<section class="my-block">
+    		<div>
+      			<h1>Register to Web App</h1>
+      			<form method="post" action='{% url 'Login:Register' %}'>
+      				{%csrf_token%}
+        			<p><input type="text" name="fname" value="" placeholder="First name"></p>
+              <p><input type="text" name="lname" value="" placeholder="Last name"></p>
+              <p style="font-size: 20; color:red">
+              {%if username == 1%}
+              *Username already taken.
+              {%endif%}
+              </p>
+              <p><input type="text" name="username" value="" placeholder="Username"></p>
+        			<p><input type="password" name="password" value="" placeholder="Password"></p>
+              <p style="font-size: 20; color:red">
+              {%if email == 1%}
+              *Email already registered.
+              {%endif%}
+              </p>
+              <p><input type="email" name="email" value="" placeholder="Email"></p>
+        			<p><input type="submit" name="commit" value="Register"></p>
+      			</form>
+    		</div>
+  		</section>
+  	</center>
+</body>
+</html>
