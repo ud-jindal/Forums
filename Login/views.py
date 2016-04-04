@@ -7,12 +7,14 @@ def Register(request):
 		u = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['password'])
 		u.first_name = request.POST['fname']
 		u.last_name = request.POST['lname']
+		u.save()
 		return render(request, 'Login/Login.html', {'register' : 1})
 	return render(request, 'Login/Register.html')
 
 def Login(request):
 	if(request.session.get('logged_in', False)):
-			return render(request, 'Login/index.html')
+		user = User.objects.get(username=request.session['user'])
+		return HttpResponseRedirect('/threads/')
 	if request.POST:
 		try:
 			user = User.objects.get(username=request.POST['username'])
@@ -24,10 +26,10 @@ def Login(request):
 			return render(request, 'Login/Login.html', {'status' : 1})
 		request.session['logged_in'] = True
 		request.session['user'] = user.username
-		return render(request, 'Login/index.html')	
+		return HttpResponseRedirect('/threads/')
 	return render(request, 'Login/Login.html')
 
 def Logout(request):
 	request.session['logged_in'] = False
 	request.session['user'] = None
-	return HttpResponseRedirect('/login')
+	return HttpResponseRedirect('/login/')

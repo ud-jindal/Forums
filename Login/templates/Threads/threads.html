@@ -1,0 +1,5 @@
+Hello, {{User.first_name}} <p style="float:right"><a href="{% url 'Login:Logout %}">Logout</a></p>
+
+{% for thread in threadlist %}
+{{forloop.counter}}. {{thread.text}}<br>
+{% endfor %}
