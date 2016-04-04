@@ -1,5 +1,7 @@
-Hello, {{User.first_name}} <p style="float:right"><a href="{% url 'Login:Logout %}">Logout</a></p>
-
+Hello, {{User.first_name}} <p style>
+<a href="{% url 'Threads:Create' User.username %}">Create Thread</a>
+<a style="float:right" href="{% url 'Login:Logout' %}">Logout</a>
+</p>
 {% for thread in threadlist %}
-{{forloop.counter}}. {{thread.text}}<br>
+{{forloop.counter}}. <a href="{% url 'Threads:Comment' thread.id %}">{{thread.text}}</a> by {{User.first_name}}<br>
 {% endfor %}

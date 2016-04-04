@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
+
 # Create your views here.
 from .models import User
 def Register(request):
@@ -14,7 +15,7 @@ def Register(request):
 def Login(request):
 	if(request.session.get('logged_in', False)):
 		user = User.objects.get(username=request.session['user'])
-		return HttpResponseRedirect('/threads/')
+		return HttpResponseRedirect('/threads/'+request.session['user']+'/')
 	if request.POST:
 		try:
 			user = User.objects.get(username=request.POST['username'])

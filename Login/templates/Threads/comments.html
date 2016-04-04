@@ -1,0 +1,19 @@
+<a href="{% url 'Threads:Home' %}">Home</a>
+<a style="float:right" href="{% url 'Login:Logout' %}">Logout</a>
+<h1>Thread</h1>
+<p>
+{{thread.text}} by {{thread.author}}
+</p>
+
+<h2>
+Comments
+</h2>
+{% for comment in Comments %}
+{{forloop.counter}}. {{comment.text}} by {{comment.author}}<br>
+{% endfor %}
+
+<form action='.' method="POST">
+{% csrf_token %}
+<input type="text" name="comment">
+<input type="submit">
+</form>

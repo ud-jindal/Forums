@@ -5,20 +5,20 @@ from Login.models import User
 from .models import Thread, Comment
 # Create your views here.
 def Home(request):
-	if(not request.session['logged_in']):
-		return HttpResponseRedirect('/login/')
-	return HttpResponseRedirect('/threads/'+str(request.session['user'])+'/')
+	if(request.session['logged_in']):
+		return HttpResponseRedirect('/threads/'+request.session['user']+'/')
+	return HttpResponseRedirect('/login/')
 
 def Threads(request, username):
-	try:
+	#try:
 		user = User.objects.get(username=username)
 		threadlist = Thread.objects.all()
 		if(request.session['logged_in']):
-			return render(request, 'Threads/threads.html', {'threadlist' : threadlist})
+			return render(request, 'Threads/threads.html', {'threadlist' : threadlist, 'User': user,})
 		else:
 			return HttpResponseRedirect('/login/')
-	except:
-		return HttpResponseRedirect('/login/')
+	#except:
+	#	return HttpResponseRedirect('/login/')
 
 def createThread(request, username):
 	if request.POST:
@@ -28,4 +28,17 @@ def createThread(request, username):
 		thread.save()
 		return HttpResponseRedirect('/threads/')
 	user = User.objects.get(username=username)
-	return render(request, 'Thread/create.html', {'User' : user})
+	return render(request, 'Threads/create.html', {'User' : user})
+
+def comment(request,  id):
+	thread = Thread.objects.get(id=id)
+	if request.POST:
+		user = User.objects.get(username=request.session['user'])
+		com = Comment()
+		com.text = request.POST['comment']
+		com.author = user
+		com.thread = thread
+		com.save()
+		return HttpResponseRedirect('.')
+	comments = thread.comment_set.all()
+	return render(request, 'Threads/comments.html', {'thread': thread, 'Comments' : comments})

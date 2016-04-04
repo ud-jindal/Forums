@@ -3,9 +3,10 @@ from django.contrib import admin
 
 from . import views
 
-app_name = 'Login'
+app_name = 'Threads'
 urlpatterns = [
-	url(r'^$', views.Home, name='Login'),
-    url(r'^(?P<username>[a-zA-Z0-9]+)', views.Threads, name='Threads'),    
-    url(r'^(?P<username>[a-zA-Z0-9]+)/create', views.createThread, name='create'),
+	url(r'^$', views.Home, name='Home'),
+	url(r'^(?P<id>[0-9])/', views.comment, name='Comment'),	
+	url(r'^(?P<username>[a-zA-Z0-9]+)/create/', views.createThread, name='Create'),
+    url(r'^(?P<username>[a-zA-Z0-9]+)/', views.Threads, name='Thread'),
 ]

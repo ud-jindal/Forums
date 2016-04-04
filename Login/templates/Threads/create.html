@@ -1,0 +1,8 @@
+Hello, {{User.first_name}}<br>
+<a href="..">Home</a>
+<a style="float:right" href="{% url 'Login:Logout' %}">Logout</a>
+<form action='.' method = "POST">
+{% csrf_token %}
+	<input type="text" name="thread">
+	<input type="submit" value="Submit">
+</form>
