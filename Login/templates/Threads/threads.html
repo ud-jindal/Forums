@@ -3,5 +3,5 @@ Hello, {{User.first_name}} <p style>
 <a style="float:right" href="{% url 'Login:Logout' %}">Logout</a>
 </p>
 {% for thread in threadlist %}
-{{forloop.counter}}. <a href="{% url 'Threads:Comment' thread.id %}">{{thread.text}}</a> by {{User.first_name}}<br>
+{{forloop.counter}}. <a href="{% url 'Threads:Comment' thread.id %}">{{thread.text}}</a> by {{thread.author.username}}<br>
 {% endfor %}

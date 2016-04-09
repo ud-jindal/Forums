@@ -4,6 +4,16 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .models import User
 def Register(request):
 	if request.POST:
+		try:
+			u = User.objects.get(username=request.POST['username'])
+			return render(request, 'Login/Register.html', {'username' : 1})
+		except:
+			pass
+		try:
+			u = User.objects.get(email=request.POST['email'])
+			return render(request, 'Login/Register.html', {'email' : 1})
+		except:
+			pass
 		u = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['password'])
 		u.first_name = request.POST['fname']
 		u.last_name = request.POST['lname']

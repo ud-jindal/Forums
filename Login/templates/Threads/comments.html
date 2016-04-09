@@ -9,7 +9,7 @@
 Comments
 </h2>
 {% for comment in Comments %}
-{{forloop.counter}}. {{comment.text}} by {{comment.author}}<br>
+{{forloop.counter}}. {{comment.text}} by {{comment.author.username}}<br>
 {% endfor %}
 
 <form action='.' method="POST">
