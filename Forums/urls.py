@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.http import HttpResponseRedirect
+
+def redirect(request):
+	return HttpResponseRedirect('/login/')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/', include('Login.urls')),
     url(r'^threads/', include('Threads.urls')), 
+    url(r'^.*$', redirect)
 ]
 
