@@ -47,3 +47,5 @@ def Logout(request):
 	request.session['logged_in'] = False
 	request.session['user'] = None
 	return HttpResponseRedirect('/login/')
+	
+##hjasklgfiulsdkbagfal##
